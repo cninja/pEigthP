@@ -10,7 +10,7 @@ Many years ago, when I started building websites, I wanted to try out writing a 
 This is a brief tutorial of pEigthP, it is intended to only describe the things that are implemented in pEigthP. If you don't know the basics of lisp, there are probably better tutorials out there.
 
 ####Including pEigthP in PHP code
-After including the pEigthP core language file, pEigthP is designed to be embeded in PHP using an output buffer filter. Below would be a full php file:
+After including the pEigthP core language file, pEigthP is designed to be embedded in PHP using an output buffer filter. Below would be a full php file:
 ```
 <?php
 include('pEigthP.php');
@@ -34,9 +34,9 @@ include('file.p8p');
 ob_end_peigthp();
 ?>
 ```
-Remember, if you do it this way, then you will need to configure your webserver to not allow p8p files to be displayed if someone where to access the p8p file directly. In other words: make sure that http://www.yourserver.com/file.p8p does not show a random internet stranger the source code to your website.
+Remember, if you do it this way, then you will need to configure your webserver to not allow p8p files to be displayed if someone were to access the p8p file directly. In other words: make sure that http://www.yourserver.com/file.p8p does not show a random internet stranger the source code to your website.
 
-All functions and global variables in PHP are acssable to pEigthP. 
+All functions and global variables in PHP are accessible to pEigthP. 
 ```
 <?php
 include('pEigthP.php');
@@ -99,7 +99,7 @@ Output: 'Pass'
 Output: 'Pass'
 ```
 *Syntax quoted lisp lists `(+ 1 2)
-**Supports "~" unquote and "~@" unquote splice opperators
+**Supports "~" unquote and "~@" unquote splice operators
 ```
 (if (== (let [a '(1 2)] 
           `(~a ~@a)) 
@@ -187,7 +187,7 @@ Output: Fib of 5 is 120
                          (~@tokens))))) 
 ```
 
-*Permanant variable assignment: `def defn defmacro`
+*Permanent variable assignment: `def defn defmacro`
 **These will add a value, function, or macro to the global pEigthP namespace
 **The destructuring, grouping and default features described for function and macro work with defn and defmacro
 ```
@@ -227,7 +227,7 @@ Output: "Hello world"
 *Temporary variable assignment: `let`
 **Used to bind (or redefine) variables within a lexical context of the `let` form. 
 **Any number of variables can be defined using let. Later variables can use previously defined variables in their definition. 
-**List destuction and grouping can be used
+**List destructuring and grouping can be used
 ```
 (let [a 1
       b (+ 1 1)
@@ -238,7 +238,7 @@ Output: 12345
 ```
 *Control flow: `if try throw do unless`
 **`if` can take 2 or 3 parameters. The first parameter is the test: if it evaluates to true (using PHP's definition of true) then the 2nd parameter is evaluated and returned, otherwise the 3rd parameter is evaluated and returned (or null if no 3rd parameter is passed). 
-**`unless` is the opposite of `if`. When the first parameter evaluates to false, the 2nd parameter is evaluated and returend, otherwise the 3rd parameter is evaluated and returned (or null if no 3rd parameter is passed).
+**`unless` is the opposite of `if`. When the first parameter evaluates to false, the 2nd parameter is evaluated and returned, otherwise the 3rd parameter is evaluated and returned (or null if no 3rd parameter is passed).
 **`try` and `throw` allow exceptions to be thrown and caught. `try` supports a finally block:
 ```
 (echo (try (+ 1 1)
@@ -261,7 +261,7 @@ Outputs: Hello World
 ```
 *Array accessors: `first second last aget nth rest next nnext take drop empty?
 **`first` `second` and `last` all take an array and return the specified element from the array
-**`aget` takes an array  and a array key (or index) and returns the element at that specific index. Multiple keys can be passed to "drill down" into an array within an array. `nth` is an alias of `aget`
+**`aget` takes an array a key (or index) and returns the element at that specific index. Multiple keys can be passed to "drill down" into an array within an array. `nth` is an alias of `aget`
 ```
 (echo (aget ['apple' 'banana' 'orange'] 1))
 (echo (aget {'k1' 'apple' 
@@ -282,7 +282,7 @@ Output: bananabananabanana
 ***`(drop 2 [3 4 5])` == `[5]`
 **`empty?` Takes one parameter and returns true if it is null or an empty list
 *Array builders: `assoc conj`
-***`assoc` makes a copy of a passed array and then the rest of the parameters are used to add additional keys and values on the coppied array. *The passed array is unaffected.*
+***`assoc` makes a copy of a passed array and then the rest of the parameters are used to add additional keys and values on the copied array. *The passed array is unaffected.*
 ```
 (var_dump (let [a {'k1' 'apple' 'k2' 'grape'}]
             (assoc a 'k1' 'orange' 'k3' 'banana')))
@@ -349,7 +349,7 @@ Outputs:array(2) {
 }
 ```
 *Iteration: `foreach map filter partition reduce`
-**`map` takes a function and an array and returns a new array with the function applied to each element. If the funciton passed to `map` can take 2 parameters, the 2nd parameter is the element's index. `foreach` is an alias to `map`
+**`map` takes a function and an array and returns a new array with the function applied to each element. If the function passed to `map` can take 2 parameters, the 2nd parameter is the element's index. `foreach` is an alias to `map`
 ```
 (echo (map #(* %0 2) [1 2 3]))
 (map #(echo (. "\nKey: " %1 " Value: " %0)) {'k1' 'v1' 'k2' 'v2'})
@@ -357,12 +357,12 @@ Outputs: [246]
 Key: k2 Value: v2
 Key: k1 Value: v1
 ```
-**`filter` takes a funciton and an array and returns a new array with only the elements where the passed function returns true. 
+**`filter` takes a function and an array and returns a new array with only the elements where the passed function returns true. 
 ```
 (echo (filter #(mod % 2) [1 2 3 4]))
 Outputs: [13]
 ```
-**If the funciton passed to `filter` can take 2 parameters, the 2nd parameter is the element's index.
+**If the function passed to `filter` can take 2 parameters, the 2nd parameter is the element's index.
 ```
 (var_dump (filter #(|| (preg_match "/aa/" %0) (== "k2" %1)) {'k1' 'apple' 
                                                              'k2' 'ant' 
@@ -382,7 +382,7 @@ Outputs: array(2) {
 Outputs: 19 6
 ```
 *Namespace: `use`
-**`use` was quickly added so I could emulate google's PHP app engine tutorials. It works, but is realtively untested. It SHOULD work similar to use in PHP.
+**`use` was quickly added so I could emulate Google's PHP app engine [tutorials](https://developers.google.com/appengine/docs/php/gettingstarted/usingusers). It works, but is relatively untested. It SHOULD work similar to use in PHP.
 ```
 (use google\appengine\api\users\UserService)
 (use google\appengine\api\users\UserService USrv)
@@ -391,7 +391,7 @@ Outputs: 19 6
 ```
 
 *Assert: `lisp_assert`
-**`lisp_assert` takes a string and a value. The string is evaluated as lisp code compared to the value. If they are the same, nothing happens. If they are different, and exception is thrown. tests.p8p has a set of tests that were built up while I developed pEigthP.
+**`lisp_assert` takes a string and a value. The string is evaluated as lisp code compared to the value. If they are the same, nothing happens. If they are different, an exception is thrown. tests.p8p has a set of tests that were built up while I developed pEigthP.
 ```
 (lisp_assert "(partition 2 [1 2 3 4 5])" [[1 2][3 4]])
 ``` 
