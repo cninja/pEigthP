@@ -615,6 +615,13 @@ $lisp_bindings = array(array(
                       },
   'array' => function(){ return func_get_args(); },
   'foreach' => function($fn, $a){ $new_a = lisp_new_for_type($a); foreach($a as $k => $v){ $new_a[$k] = $fn($v, $k);} return $new_a; },
+  'while' => function($a, $b){
+                $ans = null;
+                while($a()){
+                  $ans = $b();
+                }
+                return $ans;
+             },
   'throw' => function($a){ throw $a; },
   'if' => new NO_PARAM_EVAL(function($cond, $t, $f=null){ 
             if( lisp_eval($cond)){
@@ -854,6 +861,10 @@ ob_start_peigthp();
                 
 (defn use [name (alias null)]
   (aset! lisp_use_aliases (if-null alias (last (explode "\\" name))) name))
+
+(defn repeat [n f]
+  (while #(set! n (- n 1)) f))
+    
 <?
 ob_end_peigthp();
 ?>
