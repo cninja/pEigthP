@@ -3,8 +3,14 @@
 ## What it is
 pEigthP is a basic implementation of LISP that can be embedded in a PHP program. It is designed to work closely with the underlying PHP script allowing values and functions to be passed between PHP and pEigthP with minimal effort. 
 
+## How do you pronounce pEigthP?
+P. 8th. P. Sounds like saying PHP with a lisp.
+
 ## Why I did it
 Many years ago, when I started building websites, I wanted to try out writing a website in lisp, only to find that there are not all that many cheap hosting options available for the language. I eventually gave up and just built a PHP site instead, but thought it would have been nice if there lisp interpreter built on top of PHP so I could at least play around with lisp while still using a cheap shared hosting plan. About a month ago, I ran across [LiScript](http://www.reddit.com/r/programming/comments/1anljo/ive_just_published_my_first_opensource/) on reddit and it was worth trying to emulate something similar in PHP. pEigthP is the result. I wrote the bulk of the code off and on over the course of 2 weeks then let it sit on my computer for the following several weeks. I figure I should release it now before it sits longer. It is released under the *MIT License*
+
+## Is it fast?
+Not at all. This was just a toy project with no optimizations and quick tests show it to be in the ballpark of a couple orders of magnitute slower than PHP.
 
 ## How to use it
 This is a brief tutorial of pEigthP, it is intended to only describe the things that are implemented in pEigthP. If you don't know the basics of lisp, there are probably better tutorials out there.
