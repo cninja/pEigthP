@@ -27,7 +27,7 @@ ob_start_peigthp();
 <?
 ob_end_peigthp();
 ?>
-Output: "Hello world
+Output: "Hello world 
 3"
 ```
 
